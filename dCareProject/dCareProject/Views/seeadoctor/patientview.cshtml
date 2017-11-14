@@ -1,0 +1,105 @@
+﻿@using dCareProject.Models
+@model patient
+@{
+    ViewBag.Title = "patientview";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link href="~/Content/patient/css/metro.css" rel="stylesheet" />
+<link href="~/Content/patient/css/metro-icons.css" rel="stylesheet" />
+<script src="~/scripts/patient/js/jquery.min.js"></script>
+<script src="~/scripts/patient/js/metro.js"></script>
+
+
+
+<body style="font-family:微軟正黑體">
+
+    <div class="container">
+        <div sytle="clear:both">
+            <!-----------------------bat-->
+            <div class="app-bar red">
+                <a class="app-bar-element branding">dCare Patient</a>
+                <span class="app-bar-divider"></span>
+                <div class="app-bar-element place-right">
+                    <ul class="app-bar-menu">
+                        <li><a href="">登出</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+       
+        <!--bar-end -->
+        <br/>
+        <p style="color:red"><h2>目前看診號碼 : 70號</h2></p>
+        
+        <div class="row" style="clear:both">
+            
+            <div class="col-7">
+                <h3>遠端畫面</h3>
+                <div data-role="preloader" data-type="cycle" data-style="color" id="loading" style="width:480px;height:400px"></div>
+                <div id="frmVedio" style="display:none">
+                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,0,0" width="480" height="385">
+                        <param name="movie" value="http://10.211.55.4:86//nchplayer.swf?host=10.2.1.120:1935&scope=BroadCam&streamName=live&bandwidth=1&src=1&autostart=true&redirect=&textOnOver=">
+                        <param name="allowfullscreen" value="true">
+                        <param name="quality" value="high">
+                        <embed src="http://10.211.55.4:86/nchplayer.swf?host=10.211.55.4:1935&scope=BroadCam&streamName=live&bandwidth=1&src=1&autostart=true&redirect=&textOnOver=" width="640" height="500" allowfullscreen="true" quality="high" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" />
+                    </object>
+                </div>
+            </div>
+
+            <div class="col-2">
+            </div>
+            <div class="rightbox col-3">
+                <div class="rightbox-top">
+                   
+                    
+                    
+                    @foreach (patient row in ViewBag.name) {
+                        <img src = "@row.img" style="height:270px;width:220px"/>
+                        
+                        <h4>醫生資訊</h4>
+                        <h4>@row.doctor<span class="mif-user-md" style="color:green">上線中</span></h4>
+                    <hr>
+                    <dl>
+                      <dt>@row.address</dt>
+                      <dd>@row.section</dd>
+                      <dd>@row.daid</dd>
+                        <dd>@row.daddress</dd>
+                       
+                    </dl> }
+                </div>
+
+                <div class="rightbox-bottom">
+                    <button type="button" class="button loading-pulse lighten primary btn-block" id="saveRecord" sytle="font-size:30px" onclick="startView()">開始視訊</button>
+                    <button type="button" class="btn btn-default btn-block" onclick="redirect()">結束看診</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+        <div data-role="dialog" id="saveDialog" class="alert padding20 dialog" data-close-button="true" data-overlay="true" style="width: auto; height: auto; visibility: visible; left: 360.5px; top: 437px;">
+            <h1>儲存記錄</h1>
+            <p>
+                已更新紀錄
+            </p>
+        <span class="dialog-close-button"></span></div>
+
+
+    <script>
+        function startView(){
+            	setTimeout(function(){
+				$("#loading").css("display","none");
+				$("#frmVedio").css("display","inline");
+			}, 1400);
+        }
+
+         function redirect() {
+                window.location.href = 'login';
+                            }
+    </script>
+
+
+
+</body>
+
+
